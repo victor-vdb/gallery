@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment} from '../environments/environment';
 
 import { AngularFireModule } from 'angularfire2';
@@ -22,6 +22,9 @@ import { AuthenticationGuard } from './services/authenticationGuard.service';
 
 import { appRoutes } from '../routes';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatInputModule, MatButtonModule, MatFormFieldModule} from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,12 +36,20 @@ import { appRoutes } from '../routes';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule
   ],
+  exports: [
+    MatButtonModule,
+    MatFormFieldModule],
   providers: [AuthenticationGuard,
     AuthenticationService,
     ImageService,
