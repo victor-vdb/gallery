@@ -23,7 +23,7 @@ import { AuthenticationGuard } from './services/authenticationGuard.service';
 import { appRoutes } from '../routes';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatInputModule, MatButtonModule, MatFormFieldModule} from '@angular/material';
+import {MatInputModule, MatButtonModule, MatFormFieldModule, MatSnackBarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -45,11 +45,13 @@ import {MatInputModule, MatButtonModule, MatFormFieldModule} from '@angular/mate
     AngularFireAuthModule,
     MatInputModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSnackBarModule
   ],
   exports: [
     MatButtonModule,
-    MatFormFieldModule],
+    MatFormFieldModule,
+    MatSnackBarModule],
   providers: [AuthenticationGuard,
     AuthenticationService,
     ImageService,

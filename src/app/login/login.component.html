@@ -5,5 +5,5 @@
     <mat-form-field>
         <input matInput class="form-control" #passwordControl="ngModel" placeholder="Password" [(ngModel)]="password" name="password" maxlength="70" type="password" required> </mat-form-field>
     <button [disabled]="!loginForm.form.valid" type="submit" mat-raised-button color="primary" (click)="signIn()">Login</button>
-    <p *ngIf="msg" class="text-danger">{{msg}}</p>
+    <p *ngIf="errorMsg" color="warn">{{errorMsg}}</p>
 </form>

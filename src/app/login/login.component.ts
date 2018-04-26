@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,16 @@ export class LoginComponent {
   password: string;
   errorMsg: string;
 
-  constructor(private authService: AuthenticationService, private router: Router) { }
+  constructor(private authService: AuthenticationService, private router: Router, public snackBar: MatSnackBar) { }
 
   signIn() {
     this.authService.login({ email: this.email, password: this.password })
       .then(resolve => this.router.navigate(['gallery']))
-      .catch(error => this.errorMsg = error.message);
+      .catch(error => {
+        this.errorMsg = error.message;
+        this.snackBar.open(this.errorMsg, 'jammer', {
+        duration: 2000, });
+      });
   }
+    
 }
