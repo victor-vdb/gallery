@@ -11,13 +11,13 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ImageDetailComponent implements OnInit {
   private imageUrl = '';
+  image: Observable<GalleryImage>;
 
   constructor(private imageService: ImageService,
     private route: ActivatedRoute) { }
 
   getImageUrl(key: string) {
-    this.imageService.getImage(key)
-      .then(image => this.imageUrl = image.url);
+    this.image = this.imageService.getImage(key);
   }
 
   ngOnInit() {

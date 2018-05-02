@@ -1,0 +1,10 @@
+.upload-container {
+    height: 100%;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/gallery-victorvdb.appspot.com/o/uploads%2F20180408121614%20-%20Marseille.jpg?alt=media&token=2f542974-ddf2-4bd8-acaf-0ea16dcecdc4');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.upload-card {
+    max-width: 350px;
+}

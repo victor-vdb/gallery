@@ -1,4 +1,15 @@
-<div>
-  <app-navbar></app-navbar>
-  <router-outlet></router-outlet>
-</div>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<mat-sidenav-container class="container">
+    <mat-sidenav #sidenav opened mode="side">
+        <app-navbar></app-navbar>
+    </mat-sidenav>
+    <mat-sidenav-content>
+<!--
+        <mat-toolbar color="primary"> 
+            <mat-icon class="menu-icon" (click)="sidenav.toggle()">menu</mat-icon>
+            <span>Victor Van den Broeck</span> 
+        </mat-toolbar>
+-->
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

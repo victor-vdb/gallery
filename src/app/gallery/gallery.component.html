@@ -1,10 +1,15 @@
-<div class="row">
-    <h2>Album</h2>
-    <ul id="thumbnailsList">
-        <li *ngFor="let image of images | async" class="img">
-            <a [routerLink]="['/image', image.$key]">
-            <img src="{{image.url}}" class="tn">
-            </a>
-        </li>
-    </ul>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="0px" fxLayoutAlign="center start" style="padding-left: 0px; margin-top: 10px;" class="img-div" style="position: relative;">
+    <!--
+    <mat-card *ngFor="let image of images | async" fxFlex="calc(25% - 10px)"> <img mat-card-image src="{{image.url}}" alt="{{image.name}}">
+    </mat-card>
+-->
+    <div fxFlexAlign="center" fxFlex="calc(25% - 0px)" class="album-title">
+        <span>marseille</span>
+    </div>
+    <a *ngFor="let image of images | async" fxFlex="calc(25% - 0px)" [routerLink]="['/image', image.key]" style="position: relative;"> 
+        <img class="gal-thumb"  src="{{image.url}}" alt="{{image.name}}"> 
+        <div class="overlay">
+        </div>
+    </a>
+    
 </div>

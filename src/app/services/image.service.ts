@@ -20,11 +20,17 @@ export class ImageService {
   }
 
   getImages(): Observable<GalleryImage[]> {
-    return this.db.list('uploads').valueChanges();
+//    return this.db.list('uploads').valueChanges();
+      
+  return this.db.list('uploads').snapshotChanges().map(actions => {
+    return actions.map(action => ({ key: action.key, ...action.payload.val() }));
+  });
+      
   }
 
   getImage(key: string) {
-    return firebase.database().ref('uploads/' + key).once('value')
-    .then((snap) => snap.val());
+//    return firebase.database().ref('uploads/' + key).once('value')
+//    .then((snap) => snap.val());
+    return this.db.object('uploads/' + key).valueChanges();
   }
 }

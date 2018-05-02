@@ -1,7 +1,5 @@
 <div class="row">
   <div class=col-md-12>
-    <div [ngStyle]="{'background-image':'url('+ imageUrl +')'}" 
-      class="img-container">
-    </div>
+      <img src="{{(image | async)?.url}}"/>
   </div>
 </div>

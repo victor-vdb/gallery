@@ -1,8 +1,13 @@
-<form #loginForm="ngForm">
-    <h1 class="login-title">Log In</h1>
-    <mat-form-field>
-        <input matInput class="form-control" #emailControl="ngModel" placeholder="Email" [(ngModel)]="email" name="email" maxlength="70" email required> </mat-form-field>
-    <mat-form-field>
-        <input matInput class="form-control" #passwordControl="ngModel" placeholder="Password" [(ngModel)]="password" name="password" maxlength="70" type="password" required> </mat-form-field>
-    <button [disabled]="!loginForm.form.valid" type="submit" mat-raised-button color="primary" (click)="signIn()">Login</button>
-</form>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center center" class="login-div">
+    <mat-card fxFlexAlign="center" class="login-card">
+        <mat-card-content>
+            <form #loginForm="ngForm">
+                <mat-form-field style="width: 100%;">
+                    <input matInput class="form-control" #emailControl="ngModel" placeholder="Email" [(ngModel)]="email" name="email" maxlength="70" email required> </mat-form-field>
+                <mat-form-field style="width: 100%;">
+                    <input matInput class="form-control" #passwordControl="ngModel" placeholder="Password" [(ngModel)]="password" name="password" maxlength="70" type="password" required> </mat-form-field>
+                <button [disabled]="!loginForm.form.valid" type="submit" mat-raised-button color="primary" (click)="signIn()">Login</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

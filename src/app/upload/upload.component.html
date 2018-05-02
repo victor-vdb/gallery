@@ -6,6 +6,7 @@
     </div>
     Progress: {{upload?.progress}}% Complete
   </div>
+<!--
   <div class="container">
     <h2 class="heading">Upload New Images</h2>
     <input type="file" 
@@ -13,4 +14,19 @@
     <button class="btn btn-primary" 
     (click)="uploadFiles()">Upload Images</button>
   </div>
+-->
+</div>
+
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center center" class="upload-container">
+    <mat-card fxFlexAlign="center" class="upload-card">
+        <mat-card-content>
+            <form #loginForm="ngForm">
+                <mat-form-field style="width: 100%;">
+                    <input type="file" 
+    (change)="handleFiles($event)" multiple required>
+                </mat-form-field>
+                <button type="submit" mat-raised-button color="primary" (click)="uploadFiles()">Upload</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
 </div>

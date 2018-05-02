@@ -1,0 +1,23 @@
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 15px;
+}
+
+mat-sidenav {
+    width: 200px;
+}
+
+/*
+mat-toolbar {
+  position: absolute;
+  top: 15;
+}
+*/
+
+.menu-icon {
+  padding: 0 20px;
+}

@@ -1,6 +1,10 @@
+<!--
 <mat-toolbar color="primary">
   <span>{{title}}</span>
 </mat-toolbar>
+-->
+
+<!--
 <div class="row">
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -20,3 +24,11 @@
     </div>
   </nav>
 </div>
+-->
+
+<mat-list role="list">
+  <a mat-list-item *ngIf="(user|async)?.uid" role="listitem" routerLink="/gallery">Gallery</a>
+  <a mat-list-item *ngIf="(user|async)?.uid" role="listitem" routerLink="/upload">Upload</a>
+  <a mat-list-item *ngIf="!(user|async)?.uid" role="listitem" routerLink="/login">Login</a>
+  <a mat-list-item *ngIf="(user|async)?.uid" role="listitem" href="#" (click)="logOut()">Logout</a>
+</mat-list>
