@@ -1,6 +1,11 @@
 export interface GalleryImage {
     key?: string;
-    name?: string;
-    url?: string;
-    galleryUrl?: string;
+    id?: string;
+    baseUrl?: string;
+}
+
+export interface AlbumInfo {
+    key?: string;
+    title?: string;
+    coverPhotoBaseUrl?: string;
 }

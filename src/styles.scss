@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+$mdc-theme-primary: #1565c0;
+$mdc-theme-secondary: #388e3c; 
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular-mdc/theme/material";
+
+body {
+    margin:0px;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.masonry-image-list {
+  @include mdc-image-list-masonry-columns(4);
+}
+
+@media (max-width: 599px) {
+  .masonry-image-list {
+    @include mdc-image-list-masonry-columns(1);
+  }
+}

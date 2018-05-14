@@ -1,5 +1,14 @@
 {
   "hosting": {
-    "public": "dist"
+    "public": "dist",
+      
+    // Add the following rewrites section *within* "hosting"
+   "rewrites": [ {
+      "source": "/authgoogleapi", "function": "authgoogleapi"
+    },
+        {
+      "source": "/oauthcallback", "function": "oauthcallback"
+    }]
+      
   }
 }

@@ -18,7 +18,7 @@ export class LoginComponent {
 
   signIn() {
     this.authService.login({ email: this.email, password: this.password })
-      .then(resolve => this.router.navigate(['gallery']))
+      .then(resolve => this.router.navigate(['albums']))
       .catch(error => {
         this.errorMsg = error.message;
         this.snackBar.open(this.errorMsg, 'jammer', {

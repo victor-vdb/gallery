@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { appRoutes } from '../routes';
 import { RouterModule } from '@angular/router';
+import { RouteResolver } from './route.resolver';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment} from '../environments/environment';
 
@@ -10,6 +13,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { AppComponent } from './app.component';
+import { AlbumsComponent } from './albums/albums.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { ImageDetailComponent } from './image-detail/image-detail.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -19,11 +23,17 @@ import { UploadComponent } from './upload/upload.component';
 import { UploadService } from './services/upload.service';
 import { AuthenticationService } from './services/authentication.service';
 import { ImageService } from './services/image.service';
+import { MediaSize } from './pipes/media-size.pipe';
 import { AuthenticationGuard } from './services/authenticationGuard.service';
 
-import { appRoutes } from '../routes';
-
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {
+  MdcButtonModule,
+  MdcFabModule,
+  MdcImageListModule,
+} from '@angular-mdc/web';
+
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -98,25 +108,38 @@ import {
 export class MaterialModule {}
 
 @NgModule({
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule],
+  providers: [
+    RouteResolver
+  ]
+})
+export class AppRoutingModule {}
+
+@NgModule({
   declarations: [
     AppComponent,
+    AlbumsComponent,
     GalleryComponent,
     ImageDetailComponent,
     NavbarComponent,
     LoginComponent,
-    UploadComponent
+    UploadComponent,
+    MediaSize
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    MaterialModule
+    MaterialModule,
+    MdcImageListModule,
+    AppRoutingModule
   ],
   exports: [],
   providers: [AuthenticationGuard,

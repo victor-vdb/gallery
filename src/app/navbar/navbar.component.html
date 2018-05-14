@@ -27,7 +27,8 @@
 -->
 
 <mat-list role="list">
-  <a mat-list-item *ngIf="(user|async)?.uid" role="listitem" routerLink="/gallery">Gallery</a>
+  <button mat-list-item role="listitem" (click)="sidenav.toggle()">Menu</button>
+  <a mat-list-item *ngIf="(user|async)?.uid" role="listitem" routerLink="/albums">Gallery</a>
   <a mat-list-item *ngIf="(user|async)?.uid" role="listitem" routerLink="/upload">Upload</a>
   <a mat-list-item *ngIf="!(user|async)?.uid" role="listitem" routerLink="/login">Login</a>
   <a mat-list-item *ngIf="(user|async)?.uid" role="listitem" href="#" (click)="logOut()">Logout</a>

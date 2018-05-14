@@ -1,5 +1,4 @@
-<div class="row">
-  <div class=col-md-12>
-      <img src="{{(image | async)?.url}}"/>
+<!--<p>the message: {{ imageUrl | async }}</p>-->
+  <div class="mediaDetail">
+      <img src="{{((image | async)?.baseUrl) | mediaSize:2048:2048}}"/>
   </div>
-</div>

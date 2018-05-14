@@ -10,8 +10,10 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./image-detail.component.css']
 })
 export class ImageDetailComponent implements OnInit {
-  private imageUrl = '';
+  imageUrl = '';
   image: Observable<GalleryImage>;
+    
+  data: any;
 
   constructor(private imageService: ImageService,
     private route: ActivatedRoute) { }
@@ -21,6 +23,7 @@ export class ImageDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getImageUrl(this.route.snapshot.params['id']);
+    this.getImageUrl(this.route.snapshot.params['imageId']);
+//    this.data = this.route.snapshot.data;
   }
 }
