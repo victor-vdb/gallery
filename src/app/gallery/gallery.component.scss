@@ -18,12 +18,21 @@ mat-card {
 }
 
 .album-title {
-/*    background-color: #49aecb;*/
-    color: #13222c;
+    background-color: #49aecb;
+    color: #fff;
     font-size: xx-large;
     text-align: center;
-    padding-top: 10px;
-    height: 50px;
+    width: 100%;
+    padding-top: 66.66%; /* 4:3 Aspect Ratio */
+    position: relative; /* If you want text inside of it */
+}
+
+.title {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 /*

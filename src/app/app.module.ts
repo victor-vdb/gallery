@@ -4,13 +4,14 @@ import { HttpClientModule } from '@angular/common/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { appRoutes } from '../routes';
 import { RouterModule } from '@angular/router';
-import { RouteResolver } from './route.resolver';
+import { MediaDetailResolverService } from './services/media-detail-resolver.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment} from '../environments/environment';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { AppComponent } from './app.component';
 import { AlbumsComponent } from './albums/albums.component';
@@ -111,7 +112,7 @@ export class MaterialModule {}
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
   providers: [
-    RouteResolver
+    MediaDetailResolverService
   ]
 })
 export class AppRoutingModule {}
@@ -137,6 +138,7 @@ export class AppRoutingModule {}
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
     MaterialModule,
     MdcImageListModule,
     AppRoutingModule

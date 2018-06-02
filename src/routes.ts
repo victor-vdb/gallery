@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { RouteResolver } from './app/route.resolver';
+import { MediaDetailResolverService } from './app/services/media-detail-resolver.service';
 import { GalleryComponent } from './app/gallery/gallery.component';
 import { AlbumsComponent } from './app/albums/albums.component';
 import { ImageDetailComponent } from './app/image-detail/image-detail.component';
@@ -11,7 +11,7 @@ export const appRoutes: Routes = [
     { path: 'gallery/:albumId', component: GalleryComponent, canActivate: [AuthenticationGuard]},
     { path: 'albums', component: AlbumsComponent, canActivate: [AuthenticationGuard]},
     { path: 'upload', component: UploadComponent, canActivate: [AuthenticationGuard]},
-    { path: 'image/:imageId', component: ImageDetailComponent, resolve: { message: RouteResolver }, canActivate: [AuthenticationGuard]},
+    { path: 'media/:albumId/:imageId', component: ImageDetailComponent, resolve: { media: MediaDetailResolverService }, canActivate: [AuthenticationGuard]},
     { path: '', redirectTo: '/albums', pathMatch: 'full'},
     { path: 'login', component: LoginComponent}
 ];

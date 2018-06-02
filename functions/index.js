@@ -56,78 +56,88 @@ exports.oauthcallback = functions.https.onRequest((req, res) => {
     if (err) {
       return res.status(400).send(err);
     }
-    return admin.database().ref(DB_TOKEN_PATH).set(tokens)
+    const tokenMap = {google_tokens: tokens};
+    return admin.firestore().doc('config/google').set(tokenMap, {merge: true})
         .then(() => {
           return res.status(200).send('App successfully configured with new Credentials. '
             + 'You can now close this page.');
         });
+    // return admin.database().ref(DB_TOKEN_PATH).set(tokens)
+    //     .then(() => {
+    //       return res.status(200).send('App successfully configured with new Credentials. '
+    //         + 'You can now close this page.');
+    //     });
   });
 });
 
 
 // visit the URL for this Function to request photos
 exports.getPhotos = functions.https.onRequest((req, res) => {
-    
+
     return cors(req, res, () => {
-        
+
     let albumId = req.query.albumId;
 
-    getAuthorizedClient().then((client) => { 
-        
+    getAuthorizedClient().then((client) => {
+
         let config = {
               // https://github.com/axios/axios#request-config
               url: 'https://photoslibrary.googleapis.com/v1/mediaItems:search',
               method: 'post',
               headers: {
                   'Content-Type': 'application/json'
-              }, 
+              },
               data: {
                 albumId: albumId
-              }    
+              }
         }
-        
+
         if (! albumId) {
             config = {
-              url: 'https://photoslibrary.googleapis.com/v1/albums',   
+              url: 'https://photoslibrary.googleapis.com/v1/albums',
             }
         }
-        
+
         client.request(config).then((answer) => {
-            
+
 //            var mediaItems = answer.data.mediaItems;
             var items = (! albumId) ? answer.data.albums : answer.data.mediaItems;
-            
+
             for(var i in items){
                 let dataRef = '';
-                
+
                 if (! albumId) {
-                    dataRef = admin.database().ref(`albums/` + items[i].id);
+                    // dataRef = admin.database().ref(`albums/` + items[i].id);
+                    dataRef = admin.firestore().doc(`albums/` + items[i].id);
                     const payload = {
                         title: items[i].title,
                         coverPhotoBaseUrl: items[i].coverPhotoBaseUrl,
                         totalMediaItems: items[i].totalMediaItems,
                     };
-                    dataRef.update(
-                        JSON.parse( JSON.stringify( payload ) )
+                    dataRef.set(
+                        JSON.parse( JSON.stringify( payload ), {merge: true} )
                     );
                 }
                 else {
-                    dataRef = admin.database().ref(`albums/` + albumId + '/' + items[i].id);
-                    dataRef.update({
+                    // dataRef = admin.database().ref(`albums/` + albumId + '/' + items[i].id);
+                    dataRef = admin.firestore().doc(`albums/` + albumId + '/images/' + items[i].id);
+                    dataRef.set({
                         id: items[i].id,
                         baseUrl: items[i].baseUrl,
-                    });                  
+                    },
+                    {merge: true}
+                  );
                 }
-            } 
-            
+            }
+
             return res.status(answer.status).send(answer.statusText);
-            
+
         });
-        
-    }); 
-        
+
     });
-    
+
+    });
+
 
 //  return new Promise((resolve, reject) => {
 //    return getAuthorizedClient().then((client) => {
@@ -145,7 +155,7 @@ exports.getPhotos = functions.https.onRequest((req, res) => {
 //      });
 //    });
 //  });
-    
+
 });
 
 // trigger function to write to Sheet when new data comes in on CONFIG_DATA_PATH
@@ -186,11 +196,16 @@ function getAuthorizedClient() {
   if (oauthTokens) {
     return Promise.resolve(functionsOauthClient);
   }
-  return admin.database().ref(DB_TOKEN_PATH).once('value').then((snapshot) => {
-    oauthTokens = snapshot.val();
+  return admin.firestore().doc('config/google').get().then((doc) => {
+    oauthTokens = doc.data().google_tokens;
     functionsOauthClient.setCredentials(oauthTokens);
     return functionsOauthClient;
   });
+  // return admin.database().ref(DB_TOKEN_PATH).once('value').then((snapshot) => {
+  //   oauthTokens = snapshot.val();
+  //   functionsOauthClient.setCredentials(oauthTokens);
+  //   return functionsOauthClient;
+  // });
 }
 
 // HTTPS function to write new data to CONFIG_DATA_PATH, for testing
@@ -205,33 +220,4 @@ exports.testsheetwrite = functions.https.onRequest((req, res) => {
     thirdColumn: random3,
   }).then(() => res.status(200).send(
     `Wrote ${random1}, ${random2}, ${random3} to DB, trigger should now update Sheet.`));
-});
-
-
-
-exports.helloWorld = functions.https.onRequest((request, response) => {
-    response.send("Hello from Firebase!");
-});
-
-// Take the text parameter passed to this HTTP endpoint and insert it into the
-// Realtime Database under the path /messages/:pushId/original
-exports.addMessage = functions.https.onRequest((req, res) => {
-    // Grab the text parameter.
-    const original = req.query.text;
-    // Push the new message into the Realtime Database using the Firebase Admin SDK.
-    return admin.database().ref('/messages').push({
-        original: original
-    }).then((snapshot) => {
-        // Redirect with 303 SEE OTHER to the URL of the pushed object in the Firebase console.
-        return res.redirect(303, snapshot.ref.toString());
-    });
-});
-
-// Listens for new messages added to /messages/:pushId/original and creates an
-// uppercase version of the message to /messages/:pushId/uppercase
-exports.makeUppercase = functions.database.ref('/messages/{pushId}/original').onWrite((event) => {
-  const original = event.data.val();
-  const uppercase = original.toUpperCase();
- 
-  return event.data.ref.parent.child('uppercase').set(uppercase);
 });

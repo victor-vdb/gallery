@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class GalleryComponent implements OnInit, OnChanges {
   images: Observable<GalleryImage[]>;
+  albumId = this.route.snapshot.params['albumId'];
 
   constructor(private imageService: ImageService,
     private route: ActivatedRoute, private http: HttpClient) { }

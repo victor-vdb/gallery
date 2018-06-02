@@ -1,4 +1,6 @@
 <!--<p>the message: {{ imageUrl | async }}</p>-->
   <div class="mediaDetail">
-      <img src="{{((image | async)?.baseUrl) | mediaSize:2048:2048}}"/>
+      <!-- <img src="{{((image | async)?.baseUrl) | mediaSize:2048:2048}}"/> -->
+      <p *ngIf="loading"> haha, laden... </p>
+      <img src="{{url | mediaSize:2048:2048}}" (load)="fadeImage()"/>
   </div>
